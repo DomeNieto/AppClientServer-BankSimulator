@@ -64,8 +64,14 @@ public class ClientHandler extends Thread {
                     case "2":
                         output.write("Ingrese monto a depositar:\n");
                         output.flush();
+
+                        String depositInput = input.readLine();
+                        if (depositInput == null) {
+                            break;
+                        }
+
                         try {
-                            double depositAmount = Double.parseDouble(input.readLine());
+                            double depositAmount = Double.parseDouble(depositInput);
                             if (depositAmount > 0) {
                                 BankDatabase.deposit(account, depositAmount);
                                 output.write(
@@ -81,8 +87,14 @@ public class ClientHandler extends Thread {
                     case "3":
                         output.write("Ingrese monto a retirar:\n");
                         output.flush();
+                        String withdrawInput = input.readLine();
+                        
+                        if (withdrawInput == null) {
+                            break;
+                        }
+
                         try {
-                            double withdrawAmount = Double.parseDouble(input.readLine());
+                            double withdrawAmount = Double.parseDouble(withdrawInput);
                             if (withdrawAmount > 0) {
                                 if (BankDatabase.withdraw(account, withdrawAmount)) {
                                     output.write(
