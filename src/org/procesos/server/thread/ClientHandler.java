@@ -36,6 +36,8 @@ public class ClientHandler extends Thread {
             output.write("¡Cuenta recibida! Ahora puedes hacer una operación.\n");
             output.flush();
 
+            System.out.println("Cuenta " + account + " conectada.");
+
             while (true) {
 
                 // Muestra un menú con las opciones: consultar saldo, depositar, retirar y
@@ -88,7 +90,7 @@ public class ClientHandler extends Thread {
                         output.write("Ingrese monto a retirar:\n");
                         output.flush();
                         String withdrawInput = input.readLine();
-                        
+
                         if (withdrawInput == null) {
                             break;
                         }
@@ -114,6 +116,7 @@ public class ClientHandler extends Thread {
                         // Si el cliente elige salir, cierra la conexión y finaliza el hilo.
                         output.write("Gracias por usar el banco!\n");
                         output.flush();
+                        System.out.println("Cuenta " + account + " desconectada.");
                         return;
                     default:
                         output.write("Opción inválida.\n");
@@ -121,7 +124,9 @@ public class ClientHandler extends Thread {
                         break;
                 }
             }
-        } catch (IOException e) {
+        } catch (
+
+        IOException e) {
             System.out.println("Error en la comunicación: " + e.getMessage());
         }
     }
