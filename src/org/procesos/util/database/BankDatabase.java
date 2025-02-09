@@ -1,8 +1,10 @@
 package org.procesos.util.database;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +39,17 @@ public class BankDatabase {
             System.out.println("No se pudo cargar la base de datos: " + e.getMessage());
         }
 
+    }
+
+    // Guarda los datos del Map accounts en el archivo bank.txt
+    public static synchronized void saveAccounts() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (String key : accounts.keySet()) {
+                writer.write(key + "," + accounts.get(key) + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error al guardar cuentas: " + e.getMessage());
+        }
     }
 
 }
