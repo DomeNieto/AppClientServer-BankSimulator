@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import org.procesos.server.thread.ClientHandler;
 import org.procesos.util.constant.Constants;
 import org.procesos.util.database.BankDatabase;
 
@@ -15,6 +16,7 @@ public class ServerApp {
         System.out.println("Banco en línea. Esperando clientes...");
         while (true) {
             Socket clientSocket = serverSocket.accept();
+            new ClientHandler(clientSocket).start();
         }
     }
 }
