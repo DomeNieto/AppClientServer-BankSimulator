@@ -52,4 +52,25 @@ public class BankDatabase {
         }
     }
 
+    // Obtiene el saldo de una cuenta específica.
+    public static synchronized double getBalance(String account) {
+        return accounts.getOrDefault(account, 0.0);
+    }
+
+    // Agrega una cantidad de dinero a la cuenta especificada.
+    public static synchronized void deposit(String account, double amount) {
+        accounts.put(account, getBalance(account) + amount);
+        saveAccounts();
+    }
+
+    // Retira dinero de una cuenta si hay fondos suficientes.
+    public static synchronized boolean withdraw(String account, double amount) {
+        if (getBalance(account) >= amount) {
+            accounts.put(account, getBalance(account) - amount);
+            saveAccounts();
+            return true;
+        }
+        return false;
+    }
+
 }
